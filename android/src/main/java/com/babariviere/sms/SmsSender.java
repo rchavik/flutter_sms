@@ -81,7 +81,7 @@ class SmsSenderMethodHandler implements RequestPermissionsResultListener {
         sentIntent.putExtra("sentId", sentId);
         PendingIntent sentPendingIntent = PendingIntent.getBroadcast(
                 registrar.context(),
-                0,
+                sentId,
                 sentIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT
         );
