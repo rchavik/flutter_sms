@@ -21,6 +21,7 @@ class PermissionsRequestHandler implements PluginRegistry.RequestPermissionsResu
         if (!isRequesting) {
             isRequesting = true;
             permissionsRequest.execute();
+            isRequesting = false;
         } else {
             requests.add(permissionsRequest);
         }
