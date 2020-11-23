@@ -21,6 +21,7 @@ class PermissionsRequestHandler implements PluginRegistry.RequestPermissionsResu
         if (!isRequesting) {
             isRequesting = true;
             permissionsRequest.execute();
+            isRequesting = false;
         } else {
             requests.add(permissionsRequest);
         }
@@ -30,7 +31,7 @@ class PermissionsRequestHandler implements PluginRegistry.RequestPermissionsResu
     @Override
     public boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         isRequesting = requests.size() > 0;
-        if (isRequesting) {
+        if (!isRequesting) {
             requests.poll().execute();
         }
 
