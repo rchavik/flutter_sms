@@ -30,10 +30,14 @@ class PermissionsRequestHandler implements PluginRegistry.RequestPermissionsResu
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        isRequesting = requests.size() > 0;
-        if (!isRequesting) {
-            requests.poll().execute();
-        }
+
+        PermissionsRequest request;
+        do {
+            request = requests.poll();
+            if (request != null) {
+                request.execute();
+            }
+        } while (request != null);
 
         return false;
     }
